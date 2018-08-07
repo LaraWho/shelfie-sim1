@@ -21,8 +21,8 @@ const express = require('express')
 
     app.post('/shelf/:id/add/:addproduct', cntrl.create);
     app.get('/shelf/:id/bin/:number', cntrl.view);
-    app.put('shelf/:id/bin/:number', cntrl.edit);
-    app.delete('shelf/:id/bin/:number', cntrl.delete);
+    app.put('/shelf/:id/bin/:number', cntrl.edit);
+    app.delete('/shelf/:id/bin/:number', cntrl.delete);
 
     app.listen(SERVER_PORT, ( ) => {
         console.log(`Listening on port: ${SERVER_PORT}`)

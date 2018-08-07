@@ -39,6 +39,13 @@ class ProductInfo extends Component {
       })
     }
 
+    deleteItem() {
+    axios.delete(`/shelf/${this.props.match.params.id}/bin/${this.props.match.params.number}`)
+      .then(res => {
+        console.log(res.data)
+      })
+    }
+
     // handleEditChange() {
     //   this.setState({
     //     canEdit: !this.state.canEdit
@@ -100,7 +107,7 @@ class ProductInfo extends Component {
         </div>
 
         <div>
-          <img className="image" src={this.state.image} alt="Random"/>
+          <img className="image" src={this.state.image} alt={this.state.name}/>
         </div>
 
         <div className="product-info">
@@ -129,9 +136,10 @@ class ProductInfo extends Component {
           <button>EDIT</button>
       </div>
       }
-      <div className="delete-button">
+      <Link to={`/shelf/${this.props.match.params.id}`}><div className="delete-button"
+      onClick={() => this.deleteItem()}>
           <button>DELETE</button>
-      </div>
+      </div></Link>
 
       </div>
 

@@ -2,10 +2,10 @@ module.exports = {
 
     create: (req, res) => {
         const dbInstance = req.app.get('db')
-        const { name, price, image, shelf_id, bin_id } = req.body;
+        const { shelf_id, bin_id, name, price, image } = req.body;
 
-        dbInstance.add_item([ name, price, image, shelf_id, bin_id ])
-        .then( () => res.sendStatus(200) )
+        dbInstance.add_item([ shelf_id, bin_id, name, price, image])
+        .then( () => res.status(200) )
         .catch( err => {
             res.status(500).send({errorMessage: "Oops, couldn't add a product!"})
             console.log(err)
@@ -15,7 +15,6 @@ module.exports = {
     view: (req, res) => {
         const dbInstance = req.app.get('db');
         const { id, number } = req.params;
-        //dbInstance.view_item([shelf_id, bin_id])
         
         dbInstance.view_item( [id, +number] )
         .then( item => res.status(200).send(item) )
@@ -27,10 +26,10 @@ module.exports = {
 
     edit: (req, res) => {
         const dbInstance = req.app.get('db');
-        const { params, query } = req.params;
+        const { name, price, image } = req.params;
 
-        dbInstance.edit_item([ params.id, query.desc ])
-        .then( () => res.sendStatus(200) ) 
+        dbInstance.edit_item([ name, price, image ])
+        .then( () => res.status(200) ) 
         .catch( err => {
             res.status(500).send({errorMessage: "Oops, you can't edit this!"})
             console.log(err)
@@ -39,10 +38,10 @@ module.exports = {
 
     delete: (req, res) => {
         const dbInstance = req.app.get('db');
-        const { params } = req.params;
-
-        dbInstance.delete_item( params.id )
-        .then( () => res.sendStatus(200) )
+        const { id, number } = req.params;
+        // console.log(id, number)
+        dbInstance.delete_item( [id, +number] )
+        .then( () => res.status(200) )
         .catch( err => {
             res.status(500).send({errorMessage: "Oops, you can't delete this!"})
             console.log(err)

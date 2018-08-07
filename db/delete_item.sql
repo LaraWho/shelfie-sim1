@@ -1,2 +1,2 @@
 DELETE FROM shelfie
-WHERE bin_id = $1;
+WHERE shelf_id = $1 and bin_id = $2;
