@@ -4,16 +4,8 @@ import './shelf.css';
 import { Link } from 'react-router-dom';
 
 class Shelf extends Component {
-    constructor() {
-        super()
-
-        this.state = {
-          showAdd: false
-        }
-    }
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <div className="bin-nav-bar">

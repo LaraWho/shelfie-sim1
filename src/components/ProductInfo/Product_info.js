@@ -11,24 +11,31 @@ class ProductInfo extends Component {
           userInput: '',
           showSave: false,
           showEdit: true,
-          canEdit: false
+          canEdit: false,
+          name: '',
+          price: '',
+          image: ''
         }
 
         this.handleInput = this.handleInput.bind(this);
         this.toggleEdit = this.toggleEdit.bind(this);
         this.toggleSave = this.toggleSave.bind(this);
-        this.handleEditChange = this.handleEditChange.bind(this);
+        // this.handleEditChange = this.handleEditChange.bind(this);
+        this.handleNameInput = this.handleNameInput.bind(this);
+        this.handlePriceInput = this.handlePriceInput.bind(this);
+        this.handleimageInput = this.handleimageInput.bind(this);
     }
 
-    handleEditChange() {
-      this.setState({
-        canEdit: !this.state.canEdit
-      })
-    }
+    // handleEditChange() {
+    //   this.setState({
+    //     canEdit: !this.state.canEdit
+    //   })
+    // }
 
     toggleSave() {
       this.setState({
-        showSave: !this.state.showSave
+        showSave: !this.state.showSave,
+        canEdit: !this.state.canEdit
       })
     }
 
@@ -39,12 +46,33 @@ class ProductInfo extends Component {
     }
 
     handleInput(e) {
-      this.setState({userInput: "$ " + e.target.value})
+      this.setState({
+        userInput: "$ " + e.target.value
+      })
+    }
+
+    handleNameInput(val) {
+      this.setState({
+        name: val
+      })
+    }
+
+    handlePriceInput(val) {
+      this.setState({
+        price: val
+      })
+    }
+
+    handleimageInput(val) {
+      this.setState({
+        image: val
+      })
     }
 
   render() {
     console.log(this.props)
     console.log(this.state.canEdit)
+    console.log(this.state.name)
     return (
       <div>
 
@@ -64,11 +92,13 @@ class ProductInfo extends Component {
 
         <div className="product-info">
             <p className="product-text">Name</p>
-            <input className={this.state.canEdit ? "input-box" : "cannot-edit"} type="text"/>
+            <input className={this.state.canEdit ? "input-box" : "cannot-edit"} type="text"
+            onChange={e => this.handleNameInput(e.target.value)}/>
             <p className="product-text">Price</p>
             <input className={this.state.canEdit ? "input-box" : "cannot-edit"} type="text"
             placeholder=" $ 0.00"
-            onChange={this.handleInput}/>
+            onChange={e => this.handlePriceInput(e.target.value)}
+            value={this.state.userInput}/>
         </div>
 
         <div className="edit-buttons">
@@ -81,7 +111,7 @@ class ProductInfo extends Component {
         :
         <div className="edit-button"
         onClick={() => this.toggleEdit()}>
-          <button onClick={() => this.handleEditChange()}>EDIT</button>
+          <button>EDIT</button>
       </div>
       }
       <div className="delete-button">
