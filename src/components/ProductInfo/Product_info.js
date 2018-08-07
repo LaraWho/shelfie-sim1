@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from './logo.png';
 import './product_info.css';
+import axios from 'axios';
 
 class ProductInfo extends Component {
     constructor() {
         super()
 
         this.state = {
-          userInput: '',
+          // userInput: '',
           showSave: false,
           showEdit: true,
           canEdit: false,
@@ -17,13 +18,25 @@ class ProductInfo extends Component {
           image: ''
         }
 
-        this.handleInput = this.handleInput.bind(this);
+        // this.handleInput = this.handleInput.bind(this);
         this.toggleEdit = this.toggleEdit.bind(this);
         this.toggleSave = this.toggleSave.bind(this);
         // this.handleEditChange = this.handleEditChange.bind(this);
         this.handleNameInput = this.handleNameInput.bind(this);
         this.handlePriceInput = this.handlePriceInput.bind(this);
         this.handleimageInput = this.handleimageInput.bind(this);
+    }
+
+    componentDidMount() {
+      axios.get(`/shelf/${this.props.match.params.id}/bin/${this.props.match.params.number}`)
+      .then(res => {
+        console.log(res.data)
+        this.setState({
+          name: res.data[0].item_name,
+          price: res.data[0].item_price,
+          image: res.data[0].item_image
+        })
+      })
     }
 
     // handleEditChange() {
@@ -45,11 +58,11 @@ class ProductInfo extends Component {
       })
     }
 
-    handleInput(e) {
-      this.setState({
-        userInput: "$ " + e.target.value
-      })
-    }
+    // handleInput(e) {
+    //   this.setState({
+    //     userInput: "$ " + e.target.value
+    //   })
+    // }
 
     handleNameInput(val) {
       this.setState({
@@ -71,8 +84,8 @@ class ProductInfo extends Component {
 
   render() {
     console.log(this.props)
-    console.log(this.state.canEdit)
     console.log(this.state.name)
+    console.log(this.state.price)
     return (
       <div>
 
@@ -87,18 +100,20 @@ class ProductInfo extends Component {
         </div>
 
         <div>
-          <img className="image" src="https://picsum.photos/230/230/?random" alt="Random"/>
+          <img className="image" src={this.state.image} alt="Random"/>
         </div>
 
         <div className="product-info">
             <p className="product-text">Name</p>
             <input className={this.state.canEdit ? "input-box" : "cannot-edit"} type="text"
-            onChange={e => this.handleNameInput(e.target.value)}/>
+            onChange={e => this.handleNameInput(e.target.value)}
+            value={this.state.name}/>
             <p className="product-text">Price</p>
             <input className={this.state.canEdit ? "input-box" : "cannot-edit"} type="text"
+            value={"$" + this.state.price}
             placeholder=" $ 0.00"
             onChange={e => this.handlePriceInput(e.target.value)}
-            value={this.state.userInput}/>
+            />
         </div>
 
         <div className="edit-buttons">

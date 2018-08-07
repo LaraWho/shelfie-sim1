@@ -14,10 +14,11 @@ module.exports = {
 
     view: (req, res) => {
         const dbInstance = req.app.get('db');
-        const { params } = req.params;
+        const { id, number } = req.params;
+        //dbInstance.view_item([shelf_id, bin_id])
         
-        dbInstance.view_item( params.id )
-        .then( item => res.sendStatus(200).send(item) )
+        dbInstance.view_item( [id, +number] )
+        .then( item => res.status(200).send(item) )
         .catch( err => {
             res.status(500).send({errorMessage: "Oops, you can't see this!"})
             console.log(err)
