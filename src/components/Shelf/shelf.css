@@ -52,9 +52,22 @@ h1 {
     padding-right: 27%; 
 }
 
-.bin-buttons .add {
+.add-buttons h3 {
+    color: black;
     background-color: #ffb8af;
-    padding-right: 5%;
+    
+    font-family: 'Open Sans', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 55%;
-    color: black
+    height: 80px;
+    width: 33%;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 18px;
+    padding-right: 20%;
+    padding-left: 7%;
 }

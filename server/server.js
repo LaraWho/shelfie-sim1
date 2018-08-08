@@ -1,5 +1,4 @@
 const express = require('express')
-    , axios = require('axios')
     , massive = require('massive')
     , bodyParser = require('body-parser');
 
@@ -19,6 +18,7 @@ const express = require('express')
         app.set('db', db)
     }).catch( error => console.error('ERROR!', error))
 
+    app.get('/shelf/:id', cntrl.getShelf);
     app.post('/shelf/:id/add/:addproduct', cntrl.create);
     app.get('/shelf/:id/bin/:number', cntrl.view);
     app.put('/shelf/:id/bin/:number', cntrl.edit);

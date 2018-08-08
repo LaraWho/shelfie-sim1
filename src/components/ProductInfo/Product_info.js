@@ -61,7 +61,7 @@ class ProductInfo extends Component {
 
     toggleEdit() {
       this.setState({
-        showSave: !this.state.showSave
+        showEdit: !this.state.showEdit
       })
     }
 
@@ -86,6 +86,38 @@ class ProductInfo extends Component {
     handleimageInput(val) {
       this.setState({
         image: val
+      })
+    }
+
+    handleNameChange = val => {
+      this.setState({
+        name: val
+      })
+    }
+
+    handlePriceChange = val => {
+      this.setState({
+        price: val
+      })
+    }
+
+    handleImageChange = val => {
+      this.setState({
+        image: val
+      })
+    }
+
+    saveEdit = () => {
+      axios.post(`/shelf/${this.props.match.params.id}/bin/${this.props.match.params.number}`, 
+      {name: this.state.name, price: this.state.price})
+      .then( res => {
+        console.log(res.data)
+        this.setState({
+          showEdit: true,
+          canEdit: !this.state.canEdit,
+          name: res.data[0].item_name,
+          price: res.data[0].item_price
+        })
       })
     }
 
@@ -127,12 +159,12 @@ class ProductInfo extends Component {
 
         {this.state.showSave ?
         <div className="save-button"
-        onClick={() => this.toggleSave()}>
+        onClick={() => this.saveEdit()}>
           <button>SAVE</button>
         </div>
         :
         <div className="edit-button"
-        onClick={() => this.toggleEdit()}>
+        onClick={() => this.toggleSave()}>
           <button>EDIT</button>
       </div>
       }

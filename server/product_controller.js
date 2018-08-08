@@ -1,5 +1,17 @@
 module.exports = {
 
+    getShelf: (req, res) => {
+        const dbInstance = req.app.get('db');
+        const { id } = req.params;
+        console.log(id)
+        dbInstance.get_shelf( [id] )
+        .then( (items) => res.status(200).send(items) )
+        .catch( err => {
+            res.status(401).send({errorMessage: "Oops, you can't see this!"})
+            console.log(err)
+        })
+    },
+
     create: (req, res) => {
         const dbInstance = req.app.get('db')
         const { shelf_id, bin_id, name, price, image } = req.body;
@@ -26,10 +38,10 @@ module.exports = {
 
     edit: (req, res) => {
         const dbInstance = req.app.get('db');
-        const { name, price, image } = req.params;
+        const { name, price } = req.params;
 
-        dbInstance.edit_item([ name, price, image ])
-        .then( () => res.status(200) ) 
+        dbInstance.edit_item([ name, price ])
+        .then( (item) => res.status(200).send(item) ) 
         .catch( err => {
             res.status(500).send({errorMessage: "Oops, you can't edit this!"})
             console.log(err)
