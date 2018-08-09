@@ -9,19 +9,14 @@ class ProductInfo extends Component {
         super()
 
         this.state = {
-          // userInput: '',
           showSave: false,
-          showEdit: true,
           canEdit: false,
           name: '',
           price: '',
           image: ''
         }
 
-        // this.handleInput = this.handleInput.bind(this);
-        this.toggleEdit = this.toggleEdit.bind(this);
         this.toggleSave = this.toggleSave.bind(this);
-        // this.handleEditChange = this.handleEditChange.bind(this);
         this.handleNameInput = this.handleNameInput.bind(this);
         this.handlePriceInput = this.handlePriceInput.bind(this);
         this.handleimageInput = this.handleimageInput.bind(this);
@@ -30,7 +25,7 @@ class ProductInfo extends Component {
     componentDidMount() {
       axios.get(`/shelf/${this.props.match.params.id}/bin/${this.props.match.params.number}`)
       .then(res => {
-        console.log(res.data)
+        
         this.setState({
           name: res.data[0].item_name,
           price: res.data[0].item_price,
@@ -46,11 +41,6 @@ class ProductInfo extends Component {
       })
     }
 
-    // handleEditChange() {
-    //   this.setState({
-    //     canEdit: !this.state.canEdit
-    //   })
-    // }
 
     toggleSave() {
       this.setState({
@@ -59,17 +49,6 @@ class ProductInfo extends Component {
       })
     }
 
-    toggleEdit() {
-      this.setState({
-        showEdit: !this.state.showEdit
-      })
-    }
-
-    // handleInput(e) {
-    //   this.setState({
-    //     userInput: "$ " + e.target.value
-    //   })
-    // }
 
     handleNameInput(val) {
       this.setState({
@@ -89,35 +68,21 @@ class ProductInfo extends Component {
       })
     }
 
-    handleNameChange = val => {
-      this.setState({
-        name: val
-      })
-    }
-
-    handlePriceChange = val => {
-      this.setState({
-        price: val
-      })
-    }
-
-    handleImageChange = val => {
-      this.setState({
-        image: val
-      })
-    }
 
     saveEdit = () => {
-      axios.post(`/shelf/${this.props.match.params.id}/bin/${this.props.match.params.number}`, 
-      {name: this.state.name, price: this.state.price})
+      let { name, price, image } = this.state
+      axios.put(`/shelf/${this.props.match.params.id}/bin/${this.props.match.params.number}`, 
+      { name, price, image })
       .then( res => {
         console.log(res.data)
+        console.log(this.state.name)
         this.setState({
-          showEdit: true,
+          showSave: !this.state.showSave,
           canEdit: !this.state.canEdit,
-          name: res.data[0].item_name,
-          price: res.data[0].item_price
+          name: this.state.name,
+          price: this.state.price
         })
+        
       })
     }
 
@@ -147,7 +112,7 @@ class ProductInfo extends Component {
             value={this.state.name}/>
             <p className="product-text">Price</p>
             <input className={this.state.canEdit ? "input-box" : "cannot-edit"} type="text"
-            value={"$" + this.state.price}
+            value={this.state.price}
             placeholder=" $ 0.00"
             onChange={e => this.handlePriceInput(e.target.value)}
             />

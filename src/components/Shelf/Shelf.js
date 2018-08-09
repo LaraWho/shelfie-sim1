@@ -43,7 +43,7 @@ console.log(this.state)
             <div className="logo-container">
               <Link to={"/"}><img className="bin-logo" src={logo} alt="Logo"/></Link>
             </div>
-            <h1 onClick={this.props.history.goBack}>Shelf { this.props.match.params.id } </h1>
+            <Link to={"/"}><h1>Shelf { this.props.match.params.id } </h1></Link>
           </div>
   
         <div className="bin-buttons">

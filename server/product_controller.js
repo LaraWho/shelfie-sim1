@@ -3,7 +3,7 @@ module.exports = {
     getShelf: (req, res) => {
         const dbInstance = req.app.get('db');
         const { id } = req.params;
-        console.log(id)
+        
         dbInstance.get_shelf( [id] )
         .then( (items) => res.status(200).send(items) )
         .catch( err => {
@@ -39,12 +39,15 @@ module.exports = {
 
     edit: (req, res) => {
         const dbInstance = req.app.get('db');
+        const { id, number } = req.params;
         const { name, price, image } = req.body;
+
         console.log(req.body)
-        dbInstance.edit_item([ name, price, image ])
+
+        dbInstance.edit_item([ name, price, image, id, +number ])
         .then( (item) => res.status(200).send(item) ) 
         .catch( err => {
-            res.status(500).send({errorMessage: "Oops, you can't edit this!"})
+            res.status(400).send({errorMessage: "Oops, you can't edit this!"})
             console.log(err)
         }) 
     },
@@ -52,7 +55,7 @@ module.exports = {
     delete: (req, res) => {
         const dbInstance = req.app.get('db');
         const { id, number } = req.params;
-        // console.log(id, number)
+
         dbInstance.delete_item( [id, +number] )
         .then( () => res.status(200) )
         .catch( err => {
