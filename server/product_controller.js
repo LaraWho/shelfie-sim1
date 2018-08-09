@@ -14,12 +14,13 @@ module.exports = {
 
     create: (req, res) => {
         const dbInstance = req.app.get('db')
-        const { shelf_id, bin_id, name, price, image } = req.body;
+        const { id, addproduct } = req.params;
+        const { name, price, image } = req.body;
 
-        dbInstance.add_item([ shelf_id, bin_id, name, price, image])
-        .then( () => res.status(200) )
+        dbInstance.add_item([ id, +addproduct, name, price, image ])
+        .then( (bin) => res.status(200).send(bin) )
         .catch( err => {
-            res.status(500).send({errorMessage: "Oops, couldn't add a product!"})
+            res.status(401).send({errorMessage: "Oops, couldn't add a product!"})
             console.log(err)
         })
     },
@@ -38,9 +39,9 @@ module.exports = {
 
     edit: (req, res) => {
         const dbInstance = req.app.get('db');
-        const { name, price } = req.params;
-
-        dbInstance.edit_item([ name, price ])
+        const { name, price, image } = req.body;
+        console.log(req.body)
+        dbInstance.edit_item([ name, price, image ])
         .then( (item) => res.status(200).send(item) ) 
         .catch( err => {
             res.status(500).send({errorMessage: "Oops, you can't edit this!"})

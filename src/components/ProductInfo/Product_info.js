@@ -123,8 +123,6 @@ class ProductInfo extends Component {
 
   render() {
     console.log(this.props)
-    console.log(this.state.name)
-    console.log(this.state.price)
     return (
       <div>
 

@@ -34,25 +34,7 @@ h1 {
     letter-spacing: 2px;
 }
 
-
-.bin-buttons h2 {
-    font-family: 'Open Sans', sans-serif;
-    /* letter-spacing: 2px; */
-    font-size: 36px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ed6b5a;
-    height: 80px;
-    width: 33%;
-    border-radius: 10px;
-    margin: auto;
-    margin-top: 18px;
-    padding-right: 27%; 
-}
-
-.add-buttons h3 {
+h3 {
     color: black;
     background-color: #ffb8af;
     
@@ -70,4 +52,22 @@ h1 {
     margin-top: 18px;
     padding-right: 20%;
     padding-left: 7%;
+}
+
+
+.bin-buttons h2 {
+    font-family: 'Open Sans', sans-serif;
+    /* letter-spacing: 2px; */
+    font-size: 36px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ed6b5a;
+    height: 80px;
+    width: 33%;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 18px;
+    padding-right: 27%; 
 }
