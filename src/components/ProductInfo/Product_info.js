@@ -11,6 +11,7 @@ class ProductInfo extends Component {
         this.state = {
           showSave: false,
           canEdit: false,
+          disabled: true,
           name: '',
           price: '',
           image: ''
@@ -34,6 +35,8 @@ class ProductInfo extends Component {
       })
     }
 
+  
+
     deleteItem() {
     axios.delete(`/shelf/${this.props.match.params.id}/bin/${this.props.match.params.number}`)
       .then(res => {
@@ -45,7 +48,8 @@ class ProductInfo extends Component {
     toggleSave() {
       this.setState({
         showSave: !this.state.showSave,
-        canEdit: !this.state.canEdit
+        canEdit: !this.state.canEdit,
+        disabled: !this.state.disabled
       })
     }
 
@@ -77,6 +81,7 @@ class ProductInfo extends Component {
         console.log(res.data)
         console.log(this.state.name)
         this.setState({
+          disabled: !this.state.disabled,
           showSave: !this.state.showSave,
           canEdit: !this.state.canEdit,
           name: this.state.name,
@@ -109,12 +114,14 @@ class ProductInfo extends Component {
             <p className="product-text">Name</p>
             <input className={this.state.canEdit ? "input-box" : "cannot-edit"} type="text"
             onChange={e => this.handleNameInput(e.target.value)}
-            value={this.state.name}/>
+            value={this.state.name}
+            disabled={(this.state.disabled) ? "disabled" : ""}/>
             <p className="product-text">Price</p>
             <input className={this.state.canEdit ? "input-box" : "cannot-edit"} type="text"
             value={this.state.price}
             placeholder=" $ 0.00"
             onChange={e => this.handlePriceInput(e.target.value)}
+            disabled={(this.state.disabled) ? "disabled" : ""}
             />
         </div>
 
