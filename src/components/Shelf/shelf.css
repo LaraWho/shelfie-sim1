@@ -18,7 +18,7 @@ h1 {
     height: 55px;
     width: auto;
     margin: 10px;  
-    margin-left: 10%;
+    /* margin-left: 10%; */
     
 }
 
@@ -32,6 +32,26 @@ h1 {
     text-decoration: none;
     color: #ffffff;
     letter-spacing: 2px;
+}
+
+h3 {
+    color: black;
+    background-color: #ffb8af;
+    
+    font-family: 'Open Sans', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+    height: 80px;
+    width: 33%;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 18px;
+    padding-right: 20%;
+    padding-left: 7%;
 }
 
 
@@ -50,11 +70,4 @@ h1 {
     margin: auto;
     margin-top: 18px;
     padding-right: 27%; 
-}
-
-.bin-buttons .add {
-    background-color: #ffb8af;
-    padding-right: 5%;
-    width: 55%;
-    color: black
 }

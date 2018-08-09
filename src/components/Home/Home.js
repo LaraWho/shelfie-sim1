@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 class Home extends Component {
     
   render() {
-    console.log(this.props)
     return (
       <div>
         <div className="home-nav-bar">
